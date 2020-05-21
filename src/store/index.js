@@ -41,6 +41,7 @@ export default new Vuex.Store({
     font: "Ubuntu Mono",
     fontSize: 16,
     tabSize: 4,
+    wordWrap: "off",
     showInOutBox: false,
     showSettings: false,
     customInput: "",
@@ -113,6 +114,9 @@ export default new Vuex.Store({
     changeTabSize(state, val) {
       state.tabSize = val;
     },
+    changeWordWrap(state, val) {
+      state.wordWrap = val;
+    },
     setCheckData(state, val = "") {
       state.checkData = shajs("sha256")
         .update(val)
@@ -123,6 +127,7 @@ export default new Vuex.Store({
       state.font = "Ubuntu Mono";
       state.fontSize = 16;
       state.tabSize = 4;
+      state.wordWrap = "off";
     },
     resetCode(state) {
       state.code[state.language] = samples[state.language];
@@ -145,7 +150,7 @@ export default new Vuex.Store({
     new VuexPersistence({
       storage: window.localStorage,
       reducer: function(state) {
-        const included = ["user", "showInOutBox", "isVertical", "showSettings", "font", "fontSize", "tabSize", "language"];
+        const included = ["user", "showInOutBox", "isVertical", "showSettings", "font", "fontSize", "tabSize", "language","wordWrap"];
         console.log(state);
         return Object.keys(state)
           .filter(key => included.includes(key))
