@@ -174,7 +174,7 @@
     position: fixed;
     width: 100vw;
     height: 210px;
-    bottom: 20px;
+    bottom: 27px;
     left: 0;
     z-index: 10;
   }
@@ -254,7 +254,7 @@
       position: relative;
       right: 0;
       left: 5px;
-      top: calc(-100vh + 15px);
+      top: calc(-100vh + 27px + var(--topRelativeToBanner, 0px));
       z-index: 9;
       left: 5px;
     }

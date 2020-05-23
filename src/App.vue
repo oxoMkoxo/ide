@@ -35,6 +35,16 @@
           this.$store.commit('setIsChanged', true)
         }
       })
+      const wrapperHeightObserver = new ResizeObserver(entries => {
+        var heightOfBanner = (entries[0].contentRect.height - 45)+"px"; //calculate height of promotion-banner
+        // var ekaur = (entries[0].contentRect.height)+"px";
+        document.getElementById('editor').setAttribute('style', `height: calc(100vh - 75px - ${heightOfBanner})`);
+        var inoutElem = document.querySelector('#inoutbox');
+        inoutElem.setAttribute('style', `--topRelativeToBanner: ${heightOfBanner}`);
+      });
+
+      const wrapperDiv = document.querySelector('.wrapper');
+      wrapperHeightObserver.observe(wrapperDiv);
     }
   }
 
