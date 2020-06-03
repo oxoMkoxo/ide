@@ -25,6 +25,12 @@
           <option v-for="theme in themeOptions" :value="theme" :selected="setDefault('theme', theme)">{{themeOptionsMap[theme]}}</option>
         </select>
       </div>
+      <div class="btn-group">
+        <b>Word Wrap:</b>
+        <select @change="changeWordWrap">
+          <option v-for="wordWrap in wordWrapOptions" :value="wordWrap" :selected="setDefault('wordWrap', wordWrap)"> {{wordWrap}} </option>
+        </select>
+      </div>
       <ul class="list-inline panel-actions">
         <li @click="resetEditor"><a href="#">Reset Defaults</a></li>
       </ul>
@@ -45,7 +51,8 @@
         },
         fontOptions: ['Lucida Console', 'Anonymous Pro', 'Courier', 'Droid Sans Mono', 'Inconsolata', 'Source Code Pro', 'Ubuntu Mono'],
         sizeOptions: Array(30).fill(0).map((el, ind) => 6 + (2 * ind)),
-        tabSizeOptions: [2, 4, 8]
+        tabSizeOptions: [2, 4, 8],
+        wordWrapOptions: ['on', 'off']
       }
     },
     methods: {
@@ -61,6 +68,9 @@
       changeTabSize (e) {
         this.$store.commit('changeTabSize', e.target.value)
       },
+      changeWordWrap (e) {
+        this.$store.commit('changeWordWrap', e.target.value)
+      },
       resetEditor () {
         this.$store.commit('resetEditor')
       },
@@ -74,6 +84,8 @@
             return val === parseInt(this.$store.state.tabSize)
           case 'font':
             return val === this.$store.state.font
+          case 'wordWrap':
+            return val === this.$store.state.wordWrap
         }
       }
     }

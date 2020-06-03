@@ -37,6 +37,7 @@
           fontFamily: this.$store.state.font,
           fontSize: this.$store.state.fontSize,
           tabSize: this.$store.state.tabSize,
+          wordWrap: this.$store.state.wordWrap,
           parameterHints: true,
           renderIndentGuides: true,
           lineNumbersMinChars: 3,
@@ -76,11 +77,18 @@
             })
             this.editor.focus()
             break;
+          case "changeWordWrap":
+            this.editor.updateOptions({
+              wordWrap: this.$store.state.wordWrap
+            })
+            this.editor.focus()
+            break;  
           case "resetEditor":
             monaco.editor.setTheme(this.$store.state.theme);
             this.editor.updateOptions({
               fontFamily: this.$store.state.font,
-              fontSize: this.$store.state.fontSize
+              fontSize: this.$store.state.fontSize,
+              wordWrap: this.$store.state.wordWrap
             })
             this.editor.getModel().updateOptions({
               tabSize: this.$store.state.tabSize
@@ -108,7 +116,8 @@
             monaco.editor.setTheme(this.$store.state.theme)
             this.editor.updateOptions({
               fontFamily: this.$store.state.font,
-              fontSize: this.$store.state.fontSize
+              fontSize: this.$store.state.fontSize,
+              wordWrap: this.$store.state.wordWrap
             })
             break;
         }
