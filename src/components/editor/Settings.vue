@@ -1,41 +1,50 @@
 <template>
-  <div class="panel panel-default">
-    <div class="headPanel panel-heading" style=" border-bottom-width:0px; ">
-      <div class="btn-group">
-        <b>Font:</b>
-        <select @change="changeFont">
-          <option v-for="font in fontOptions" :value="font" :selected="setDefault('font', font)"> {{font}} </option>
-        </select>
+  <modal name="settings-modal" transition="pop-out" :width="600" :pivot-y="0.4" :height="340">
+      <div class="settings-modal-title flex-center">
+        Settings
       </div>
-      <div class="btn-group">
-        <b>Size:</b>
-        <select @change="changeSize">
-          <option v-for="size in sizeOptions" :value="size" :selected="setDefault('size', size)">{{size}}</option>
-        </select>
+      <div class="settings-modal-content">
+        <div class="btn-group flex-item">
+          <b>Font:</b>
+          <select @change="changeFont">
+            <option v-for="font in fontOptions" :value="font" :selected="setDefault('font', font)"> {{font}} </option>
+          </select>
+        </div>
+        <div class="btn-group flex-item">
+          <b>Font Size:</b>
+          <select @change="changeSize">
+            <option v-for="size in sizeOptions" :value="size" :selected="setDefault('size', size)">{{size}}</option>
+          </select>
+        </div>
+        <div class="btn-group flex-item">
+          <b>Tab Size:</b>
+          <select @change="changeTabSize">
+            <option v-for="tabSize in tabSizeOptions" :value="tabSize" :selected="setDefault('tabSize', tabSize)">{{tabSize}}</option>
+          </select>
+        </div>
+        <div class="btn-group flex-item">
+          <b>Theme:</b>
+          <select @change="changeTheme">
+           <option v-for="theme in themeOptions" :value="theme" :selected="setDefault('theme', theme)">{{themeOptionsMap[theme]}}</option>
+          </select>
+        </div>
+        <div class="btn-group flex-item">
+          <b>Word Wrap:</b>
+          <select @change="changeWordWrap">
+            <option v-for="wordWrap in wordWrapOptions" :value="wordWrap" :selected="setDefault('wordWrap', wordWrap)"> {{wordWrap}} </option>
+          </select>
+        </div>
       </div>
-      <div class="btn-group">
-        <b>Tab Size:</b>
-        <select @change="changeTabSize">
-          <option v-for="tabSize in tabSizeOptions" :value="tabSize" :selected="setDefault('tabSize', tabSize)">{{tabSize}}</option>
-        </select>
+      <div class="settings-modal-footer">
+          <ul class="list-inline panel-actions">
+            <li @click="resetEditor"><a href="#">Reset Defaults</a></li>
+            <li><button class="btn btn-run btn-sm" @click="closeSettingsModal()">
+                Close
+              </button>
+            </li>
+          </ul>
       </div>
-      <div class="btn-group">
-        <b>Theme:</b>
-        <select @change="changeTheme">
-          <option v-for="theme in themeOptions" :value="theme" :selected="setDefault('theme', theme)">{{themeOptionsMap[theme]}}</option>
-        </select>
-      </div>
-      <div class="btn-group">
-        <b>Word Wrap:</b>
-        <select @change="changeWordWrap">
-          <option v-for="wordWrap in wordWrapOptions" :value="wordWrap" :selected="setDefault('wordWrap', wordWrap)"> {{wordWrap}} </option>
-        </select>
-      </div>
-      <ul class="list-inline panel-actions">
-        <li @click="resetEditor"><a href="#">Reset Defaults</a></li>
-      </ul>
-    </div>
-  </div>
+    </modal>
 </template>
 
 <script>
@@ -74,6 +83,9 @@
       resetEditor () {
         this.$store.commit('resetEditor')
       },
+      closeSettingsModal() {
+        this.$modal.hide('settings-modal')
+      },
       setDefault (type, val) {
         switch (type) {
           case 'theme':
@@ -97,45 +109,35 @@
     margin: 10px;
   }
 
-  .panel {
-    width: 100vw;
-    height: 40px;
-    z-index: 20;
-    position: absolute;
-    margin: 0;
-  }
-
-  .panel-actions {
+  .settings-modal-footer .panel-actions button{
     float: right;
+    width: 80px;
   }
 
-  .panel-heading {
-    background: #272727;
-    color: #fff;
-    border-color: #272727;
-    overflow: hidden;
+  .settings-modal-footer {
+    margin: 0px 10px 10px;
+    padding: 10px 10px 10px 0px;
+    color: #b4b4b4;
   }
 
-  .panel-heading a {
+  .settings-modal-footer a {
     color:#fff;
   }
 
-  .panel select {
+  .settings-modal-content select {
     z-index: 20;
     color: #202020;
     background: white !important;
     border-radius: 4px;
     overflow: hidden;
-  }
-
-  .panel select:focus {
-    outline: none;
-  }
-
-  .panel select {
     height: 28px;
     padding: 4px;
     margin-left: 8px;
     border: none;
   }
+
+  .settings-modal-content select:focus {
+    outline: none;
+  }
+  
 </style>

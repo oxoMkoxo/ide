@@ -48,7 +48,6 @@ export default new Vuex.Store({
     tabSize: 4,
     wordWrap: "on",
     showInOutBox: false,
-    showSettings: false,
     customInput: "",
     customInputBuf: "", //input buffer to store customInput when toggled OFF
     output: "",
@@ -72,9 +71,6 @@ export default new Vuex.Store({
     },
     toggleInOutBox(state) {
       state.showInOutBox = !state.showInOutBox;
-    },
-    toogleSettings(state) {
-      state.showSettings = !state.showSettings;
     },
     changeLanguage(state, val) {
       state.language = val;
@@ -157,7 +153,7 @@ export default new Vuex.Store({
     new VuexPersistence({
       storage: window.localStorage,
       reducer: function(state) {
-        const included = ["user", "showInOutBox", "isVertical", "showSettings", "font", "fontSize", "tabSize", "language","wordWrap"];
+        const included = ["user", "showInOutBox", "isVertical", "font", "fontSize", "tabSize", "language","wordWrap"];
         console.log(state);
         return Object.keys(state)
           .filter(key => included.includes(key))

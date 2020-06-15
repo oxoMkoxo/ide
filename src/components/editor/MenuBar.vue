@@ -66,7 +66,7 @@
 
               <ul class="dropdown-menu">
                 <li>
-                  <button type="button" id="settingButton" class="btn btn-sm btn-menu" @click="settingsToggle">
+                  <button type="button" id="settingButton" class="btn btn-sm btn-menu" @click="showSettingsModal()">
                     Settings <span class="fa fa-cog"></span>
                   </button>
                 </li>
@@ -88,7 +88,7 @@
           </div>
         </div>
       </div>
-      <settings v-show="this.$store.state.showSettings"></settings>
+      <settings></settings>
     </div>
     
     <modal name="download-modal" transition="pop-out" :width="680" :pivot-y="0.2" :height="auto">
@@ -262,9 +262,6 @@
       InOutBoxToggle() {
         this.$store.commit('toggleInOutBox')
       },
-      settingsToggle() {
-        this.$store.commit('toogleSettings')
-      },
       selectFile() {
         // open file select dialogue
         this.$refs.fileUpload.click()
@@ -326,6 +323,9 @@
       },
       closeShortcutsModal() {
         this.$modal.hide('shortcuts-modal')
+      },
+      showSettingsModal() {
+        this.$modal.show('settings-modal')
       },
       keyShortCuts(e) {
         const isMacLike = navigator.platform.match(/(Mac|iPad)/i) ? true : false
@@ -542,6 +542,11 @@
     align-items: center;
   }
 
+   .flex-item {
+     display: inline-block;
+     width: 45%;
+   }
+
   .flex-space-between {
     display: flex;
     justify-content: space-between;
@@ -623,7 +628,9 @@
   }
 
   .shortcuts-modal-title,
-  .shortcuts-modal-content {
+  .shortcuts-modal-content,
+  .settings-modal-title,
+  .settings-modal-content {
     padding: 8px;
     color: #b4b4b4;
   }
@@ -633,7 +640,8 @@
     overflow-y: auto;
   }
 
-  .shortcuts-modal-title {
+  .shortcuts-modal-title,
+  .settings-modal-title {
     font-size: 24px;
     font-weight: 500;
     text-transform: uppercase;
@@ -645,6 +653,17 @@
     font-size: 16px;
     font-weight: 400;
   }
+
+  .settings-modal-content,
+  .settings-modal-footer {
+    font-size: 16px;
+    font-weight: 300;
+  }
+  .settings-modal-footer {
+    padding: 0px;
+    margin-bottom: 10px;
+  }
+
 
   .key-span {
     color: #555;
@@ -665,7 +684,8 @@
     margin: 8px;
   }
 
-  .shortcuts-modal-close {
+  .shortcuts-modal-close, 
+  .settings-modal-close {
     position: absolute;
     right: 15px;
     top: 15px;
